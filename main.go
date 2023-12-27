@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"reflect"
 )
 
 func main() {
@@ -33,7 +34,7 @@ func JSONRequest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	val, check := body["message"]
-	if check {
+	if check && reflect.TypeOf(val).Kind() == reflect.String {
 		fmt.Println(val)
 		resp["status"] = "success"
 		resp["message"] = "Data successfully received"
